@@ -9,8 +9,8 @@ unsafe fn as_u8_slice<T: Sized>(p: &T) -> &[u8] {
 }
 
 impl Image {
-    pub fn save(&self) {
-        let mut f = File::create("./result.bmp").unwrap();
+    pub fn save(&self, save_file_name: String) {
+        let mut f = File::create(format!("./result/{}.bmp", save_file_name)).unwrap();
 
         // 파일 헤더 작성
         let file_header_bytes = unsafe { as_u8_slice(&self.file_header) };
