@@ -2,6 +2,7 @@ pub mod inverse;
 pub mod save;
 pub mod brightness;
 pub mod contrast;
+mod gonzalez;
 
 use std::fs::File;
 use std::io::Read;
