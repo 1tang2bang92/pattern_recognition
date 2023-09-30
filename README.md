@@ -9,3 +9,8 @@
 # 2 week
 - brightness
 - contrast
+
+# 3 week
+- histogram
+- binarization
+- gonzalez
