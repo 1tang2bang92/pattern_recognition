@@ -5,6 +5,8 @@ pub mod contrast;
 mod gonzalez;
 mod histogram;
 mod binarization;
+mod stretching;
+mod equalization;
 
 use std::fs::File;
 use std::io::Read;

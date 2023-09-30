@@ -14,3 +14,7 @@
 - histogram
 - binarization
 - gonzalez
+
+# 4 week
+- histogram stretching
+- histogram equalization

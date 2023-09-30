@@ -14,6 +14,8 @@ fn main() {
 	println!("4.  Generate Histogram");
 	println!("5.  Generate Binarization - Gonzalez Method");
 	println!("6.  Generate Binarization");
+    println!("7.  Histogram Stretching");
+    println!("8.  Histogram Equalization");
 	println!("=================================");
 	println!();
 	println!();
@@ -98,6 +100,20 @@ fn main() {
             image
                 .binarization(threshold)
                 .save(save_file_name.trim().to_owned());
+        },
+        7 => { // Histogram stretching
+            let histogram = image.histogram();
+
+            image
+                .histogram_stretching(histogram)
+                .save(save_file_name.trim().to_owned());
+        },
+        8 => { // Histogram equalization
+            let hitogram = image.histogram();
+
+            image
+                .histogram_equilization(hitogram)
+                .save(save_file_name.trim().parse().unwrap());
         },
         _ => {
             println!("입력 값이 잘못되었습니다.")
