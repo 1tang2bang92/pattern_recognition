@@ -1,7 +1,7 @@
 use crate::model::Image;
 
 impl Image {
-    pub fn binarization(mut self, threshold: u8) -> self {
+    pub fn binarization(mut self, threshold: u8) -> Self {
         self.body = self.body
             .iter()
             .map(|x | if x > &threshold {
@@ -9,6 +9,8 @@ impl Image {
             } else {
                 0
             })
-            .collect()
+            .collect();
+        
+        self
     }
 }

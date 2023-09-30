@@ -11,6 +11,9 @@ fn main() {
 	println!("1.  Inverse");
 	println!("2.  Adjust Brightness");
 	println!("3.  Adjust Contrast");
+	println!("4.  Generate Histogram");
+	println!("5.  Generate Binarization - Gonzalez Method");
+	println!("6.  Generate Binarization");
 	println!("=================================");
 	println!();
 	println!();
@@ -72,15 +75,15 @@ fn main() {
                 .save(save_file_name.trim().to_owned());
         },
         4 => { // Histogram
-            let histogram = image.hitogram();
-            println!("{}", histogram);
+            let histogram = image.histogram();
+            println!("{:?}", histogram);
         },
         5 => { // Binarization using Gonzalez algorithm
             let histogram = image.histogram();
-            let b_threshold = image.gonzalez(histogram);
+            let threshold = image.gonzalez(histogram);
 
             image
-                .binarization(b_threshold)
+                .binarization(threshold)
                 .save(save_file_name.trim().to_owned());
         },
         6 => { // Binarization

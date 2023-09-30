@@ -1,48 +1,53 @@
 use crate::model::Image;
 
 impl Image {
-    pub fn gonzalez(self, histogram: Vec<u32>) -> u8 {
-        let low: u8 = histogram
-            .iter()
+    pub fn gonzalez(&self, histogram: Vec<u32>) -> u8 {
+        const EPSILON: i32 = 2;
+
+        let indexed_histogram: Vec<(usize, u32)> = histogram
+            .into_iter()
             .enumerate()
-            .find(|(_, &y)| y != 0)
-            .map(|(x, _)| x as u8)
+            .collect();
+
+        let low: u8 = indexed_histogram
+            .iter()
+            .find(|(_, y)| y > &0)
+            .map(|(x, _)| *x as u8)
             .unwrap_or(0);
 
-        let high: u8 = histogram
+        let high: u8 = indexed_histogram
             .iter()
-            .enumerate()
             .rev()
-            .find(|(_, &y)| y != 0)
-            .map(|(x, _)| x as u8)
-            .unwrap_or(0);
+            .find(|(_, y)| y > &0)
+            .map(|(x, _)| *x as u8)
+            .unwrap_or(255);
 
-        const EPSILON: u8 = 2;
         let mut threshold: u8 = (high + low) / 2;
 
-        fn get_mean (histogram_part: Vec<u32>) -> i32 {
-            let g: i32 = histogram_part
+        fn get_mean (histogram_part: &[(usize, u32)]) -> f64 {
+            let g: u32 = histogram_part
                 .iter()
-                .enumerate()
-                .map(|i, x| i * x)
-                .sum();
+                .fold(0, |acc, &(i, x)| ((i as u32) * x) + acc);
 
-            let len = histogram_part.len();
+            let len: u32 = histogram_part
+                .iter()
+                .fold(0, |acc, &(_, x)| { acc + (x as u32) });
+
             if len > 0 {
-                g / len
+                f64::from(g) / (len as f64)
             } else {
-                1
+                1.0
             }
 
         }
 
         loop {
-            let mean_g1: i32 = get_mean(histogram[low..threshold]);
-            let mean_g2: i32 = get_mean(histogram[threshold..high]);
+            let mean_g1: f64 = get_mean(&indexed_histogram[low.into()..threshold.into()]);
+            let mean_g2: f64 = get_mean(&indexed_histogram[threshold.into()..high.into()]);
 
-            let new_threshold: u8 = ((mean_g1 + mean_g2) / 2) as u8;
+            let new_threshold: u8 = ((mean_g1 + mean_g2) / 2.0) as u8;
 
-            if (new_threshold - threshold).abs() < EPSILON {
+            if ((threshold as i32) - (new_threshold as i32)).abs() < EPSILON {
                 threshold = new_threshold;
                 println!("Final Threshold = {}", new_threshold);
                 break
