@@ -42,10 +42,10 @@ fn main() {
         .unwrap();
 
     match n_mode {
-        1 => image
+        1 => image // Inverse
                 .inverse()
                 .save(save_file_name.trim().to_owned()),
-        2 => {
+        2 => { // Brightness
             println!("밝기 조절 값(정수)을 입력하세요 : ");
             let mut brightness_input = String::new();
             io::stdin()
@@ -58,7 +58,7 @@ fn main() {
                 .brightness(brightness)
                 .save(save_file_name.trim().to_owned());
         },
-        3 => {
+        3 => { // Contrast
             println!("대비 조절 값(실수)을 입력하세요 : ");
             let mut contrast_input = String::new();
             io::stdin()
@@ -71,6 +71,33 @@ fn main() {
                 .contrast(contrast)
                 .save(save_file_name.trim().to_owned());
         },
-        _ => {}
+        4 => { // Histogram
+            let histogram = image.hitogram();
+            println!("{}", histogram);
+        },
+        5 => { // Binarization using Gonzalez algorithm
+            let histogram = image.histogram();
+            let b_threshold = image.gonzalez(histogram);
+
+            image
+                .binarization(b_threshold)
+                .save(save_file_name.trim().to_owned());
+        },
+        6 => { // Binarization
+            println!("이진화 임계값(Threshold)를 입력하세요: ");
+            let mut threshold_input = String::new();
+            io::stdin()
+                .read_line(&mut threshold_input)
+                .unwrap();
+
+            let threshold: u8 = threshold_input.trim().parse().unwrap();
+
+            image
+                .binarization(threshold)
+                .save(save_file_name.trim().to_owned());
+        },
+        _ => {
+            println!("입력 값이 잘못되었습니다.")
+        }
     }
 }

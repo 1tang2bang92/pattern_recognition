@@ -3,6 +3,8 @@ pub mod save;
 pub mod brightness;
 pub mod contrast;
 mod gonzalez;
+mod histogram;
+mod binarization;
 
 use std::fs::File;
 use std::io::Read;
