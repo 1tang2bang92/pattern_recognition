@@ -112,7 +112,7 @@ fn main() {
             let hitogram = image.histogram();
 
             image
-                .histogram_equilization(hitogram)
+                .histogram_equalization(hitogram)
                 .save(save_file_name.trim().parse().unwrap());
         },
         _ => {
