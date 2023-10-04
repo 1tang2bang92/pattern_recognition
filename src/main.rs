@@ -1,5 +1,6 @@
 mod convert;
 mod model;
+mod kernel;
 
 use std::io;
 use crate::model::Image;
@@ -16,6 +17,15 @@ fn main() {
 	println!("6.  Generate Binarization");
     println!("7.  Histogram Stretching");
     println!("8.  Histogram Equalization");
+    println!("9.  Average Convolution");
+    println!("10. Gaussian Convolution");
+    println!("11. Laplacian Convolution");
+    println!("12. Prewitt X Convolution");
+    println!("13. Prewitt Y Convolution");
+    println!("14. Prewitt Convolution");
+    println!("15. Sobel X Convolution");
+    println!("16. Sobel Y Convolution");
+    println!("17. Sobel Convolution");
 	println!("=================================");
 	println!();
 	println!();
@@ -114,6 +124,54 @@ fn main() {
             image
                 .histogram_equalization(hitogram)
                 .save(save_file_name.trim().parse().unwrap());
+        },
+        9 => { // Average Convolution
+            image
+                .convolution("average")
+                .save(save_file_name.trim().parse().unwrap())
+        },
+        10 => { // Gaussian Convolution
+            image
+                .convolution("gaussian")
+                .save(save_file_name.trim().parse().unwrap())
+        },
+        11 => { // Laplacian Convolution
+            todo!()
+            // image
+            //     .convolution("average")
+            //     .save(save_file_name.trim().parse().unwrap())
+        },
+        12 => { // Prewitt X Convolution
+            image
+                .convolution("prewitt-x")
+                .save(save_file_name.trim().parse().unwrap())
+        },
+        13 => { // Prewitt Y Convolution
+            image
+                .convolution("prewitt-y")
+                .save(save_file_name.trim().parse().unwrap())
+        },
+        14 => { // Prewitt Convolution
+            todo!()
+            // image
+            //     .convolution("average")
+            //     .save(save_file_name.trim().parse().unwrap())
+        },
+        15 => { // Sebel X Convolution
+            image
+                .convolution("sebel-x")
+                .save(save_file_name.trim().parse().unwrap())
+        },
+        16 => { // Sobel Y Convolution
+            image
+                .convolution("sebel-y")
+                .save(save_file_name.trim().parse().unwrap())
+        },
+        17 => { // Sobel Convolution
+            todo!()
+            // image
+            //     .convolution("average")
+            //     .save(save_file_name.trim().parse().unwrap())
         },
         _ => {
             println!("입력 값이 잘못되었습니다.")
