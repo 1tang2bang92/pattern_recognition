@@ -136,10 +136,9 @@ fn main() {
                 .save(save_file_name.trim().parse().unwrap())
         },
         11 => { // Laplacian Convolution
-            todo!()
-            // image
-            //     .convolution("average")
-            //     .save(save_file_name.trim().parse().unwrap())
+            image
+                .convolution("laplacian")
+                .save(save_file_name.trim().parse().unwrap())
         },
         12 => { // Prewitt X Convolution
             image
@@ -152,10 +151,19 @@ fn main() {
                 .save(save_file_name.trim().parse().unwrap())
         },
         14 => { // Prewitt Convolution
-            todo!()
-            // image
-            //     .convolution("average")
-            //     .save(save_file_name.trim().parse().unwrap())
+            let x = image.clone().convolution("prewitt-x").body;
+            let y = image.clone().convolution("prewitt-y").body;
+
+            for (i, (m, n)) in &mut x.iter().zip(y).enumerate() {
+                image.body[i] = if m > &n {
+                    *m
+                } else {
+                    n
+                }
+            }
+
+            image
+                .save(save_file_name.trim().parse().unwrap())
         },
         15 => { // Sebel X Convolution
             image
@@ -168,10 +176,19 @@ fn main() {
                 .save(save_file_name.trim().parse().unwrap())
         },
         17 => { // Sobel Convolution
-            todo!()
-            // image
-            //     .convolution("average")
-            //     .save(save_file_name.trim().parse().unwrap())
+            let x = image.clone().convolution("sebel-x").body;
+            let y = image.clone().convolution("sebel-y").body;
+
+            for (i, (m, n)) in &mut x.iter().zip(y).enumerate() {
+                image.body[i] = if m > &n {
+                    *m
+                } else {
+                    n
+                }
+            }
+
+            image
+                .save(save_file_name.trim().parse().unwrap())
         },
         _ => {
             println!("입력 값이 잘못되었습니다.")

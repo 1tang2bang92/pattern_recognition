@@ -9,6 +9,8 @@ use windows::Win32::Graphics::Gdi::{BITMAPFILEHEADER, BITMAPINFOHEADER, RGBQUAD}
 /// color note? (variable bit)
 /// ## body
 /// real bitmap file (variable bit)
+
+#[derive(Clone)]
 pub struct Image {
     pub file_header: BITMAPFILEHEADER,
     pub info_header: BITMAPINFOHEADER,
