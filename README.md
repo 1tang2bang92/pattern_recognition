@@ -18,3 +18,11 @@
 # 4 week
 - histogram stretching
 - histogram equalization
+
+# 5 week
+- convolution:
+    - average
+    - gaussian
+    - prewitt
+    - sebel
+    - laplacian
