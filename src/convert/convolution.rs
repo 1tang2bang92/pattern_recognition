@@ -1,4 +1,4 @@
-use crate::kernel::{AVG, GAUSSIAN, LAPLACIAN, PREWITT_X, PREWITT_Y, SEBEL_X, SEBEL_Y};
+use crate::kernel::{AVG, GAUSSIAN, LAPLACIAN, PREWITT_X, PREWITT_Y, SOBEL_X, SOBEL_Y};
 use crate::model::Image;
 
 impl Image {
@@ -10,8 +10,8 @@ impl Image {
             "gaussian" => GAUSSIAN,
             "prewitt-x" => PREWITT_X,
             "prewitt-y" => PREWITT_Y,
-            "sebel-x" => SEBEL_X,
-            "sebel-y" => SEBEL_Y,
+            "sobel-x" => SOBEL_X,
+            "sobel-y" => SOBEL_Y,
             "laplacian" => LAPLACIAN,
             _ => panic!("Invalid method")
         };

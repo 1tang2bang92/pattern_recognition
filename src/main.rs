@@ -165,19 +165,19 @@ fn main() {
             image
                 .save(save_file_name.trim().parse().unwrap())
         },
-        15 => { // Sebel X Convolution
+        15 => { // Sobel X Convolution
             image
-                .convolution("sebel-x")
+                .convolution("sobel-x")
                 .save(save_file_name.trim().parse().unwrap())
         },
         16 => { // Sobel Y Convolution
             image
-                .convolution("sebel-y")
+                .convolution("sobel-y")
                 .save(save_file_name.trim().parse().unwrap())
         },
         17 => { // Sobel Convolution
-            let x = image.clone().convolution("sebel-x").body;
-            let y = image.clone().convolution("sebel-y").body;
+            let x = image.clone().convolution("sobel-x").body;
+            let y = image.clone().convolution("sobel-y").body;
 
             for (i, (m, n)) in &mut x.iter().zip(y).enumerate() {
                 image.body[i] = if m > &n {

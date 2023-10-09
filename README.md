@@ -24,5 +24,5 @@
     - average
     - gaussian
     - prewitt
-    - sebel
+    - sobel
     - laplacian
