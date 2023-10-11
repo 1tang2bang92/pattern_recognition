@@ -26,6 +26,7 @@ fn main() {
     println!("15. Sobel X Convolution");
     println!("16. Sobel Y Convolution");
     println!("17. Sobel Convolution");
+    println!("18. Laplacian High Pass Filter Convolution");
 	println!("=================================");
 	println!();
 	println!();
@@ -154,13 +155,11 @@ fn main() {
             let x = image.clone().convolution("prewitt-x").body;
             let y = image.clone().convolution("prewitt-y").body;
 
-            for (i, (m, n)) in &mut x.iter().zip(y).enumerate() {
-                image.body[i] = if m > &n {
-                    *m
-                } else {
-                    n
-                }
-            }
+            image.body = x
+                .iter()
+                .zip(y)
+                .map(|(&a, b)| a.max(b))
+                .collect::<Vec<u8>>();
 
             image
                 .save(save_file_name.trim().parse().unwrap())
@@ -179,13 +178,11 @@ fn main() {
             let x = image.clone().convolution("sobel-x").body;
             let y = image.clone().convolution("sobel-y").body;
 
-            for (i, (m, n)) in &mut x.iter().zip(y).enumerate() {
-                image.body[i] = if m > &n {
-                    *m
-                } else {
-                    n
-                }
-            }
+            image.body = x
+                .iter()
+                .zip(y)
+                .map(|(&a, b)| a.max(b))
+                .collect::<Vec<u8>>();
 
             image
                 .save(save_file_name.trim().parse().unwrap())

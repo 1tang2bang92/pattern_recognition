@@ -8,11 +8,11 @@ impl Image {
         let (kernel, divide_value) = match method {
             "average" => (AVG, None),
             "gaussian" => (GAUSSIAN, None),
-            "prewitt-x" => (PREWITT_X, 3),
-            "prewitt-y" => (PREWITT_Y, 3),
-            "sobel-x" => (SOBEL_X, 4),
-            "sobel-y" => (SOBEL_Y, 4),
-            "laplacian" => (LAPLACIAN, 8),
+            "prewitt-x" => (PREWITT_X, Some(3u8)),
+            "prewitt-y" => (PREWITT_Y, Some(3u8)),
+            "sobel-x" => (SOBEL_X, Some(4u8)),
+            "sobel-y" => (SOBEL_Y, Some(4u8)),
+            "laplacian" => (LAPLACIAN, Some(8u8)),
             "laplacian-hpf" => (LAPLACIAN_HPF, None),
             _ => panic!("Invalid method")
         };
@@ -34,10 +34,8 @@ impl Image {
                     }
                 }
 
-                dst.body[(i * width + j) as usize] = sum_product.abs() as u8;
-                if let v = Some(divide_value) {
-                    dst.body[(i * width + j) as usize] = dst.body[(i * width + j) as usize] / v;
-                }
+                dst.body[(i * width + j) as usize] =
+                    (sum_product.abs() as u8) / divide_value.unwrap_or(1u8);
             }
         }
 

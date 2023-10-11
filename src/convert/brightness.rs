@@ -6,13 +6,13 @@ impl Image {
         let body = self.body
             .iter()
             .map(|x | {
-                let a = x + n_brightness;
+                let a = (*x as i32) + (n_brightness as i32);
                 if a > 255 {
                     255
                 } else if a < 0 {
                     0
                 } else {
-                    a
+                    a as u8
                 }
             })
             .collect();

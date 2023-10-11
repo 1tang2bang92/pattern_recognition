@@ -2,11 +2,12 @@ use crate::model::Image;
 
 impl Image {
     pub fn inverse(self) -> Self {
-        let mut body = self.body;
+        let body = self.body;
 
-        for i in 0..body.len() {
-            body[i] = u8::MAX - body[i];
-        }
+        let body = body
+            .iter()
+            .map(|x| u8::MAX - *x)
+            .collect();
 
         Self { body, ..self }
     }

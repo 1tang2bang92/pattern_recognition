@@ -22,12 +22,9 @@ impl Image {
 
         let body = body
             .iter()
-            .map(|x| ((x as f64 - low) / (high - low) * 255f64) as u8)
+            .map(|x| ((*x as f64 - low) / (high - low) * 255f64) as u8)
             .collect();
 
-        Self {
-            body,
-            ..self
-        }
+        Self { body, ..self }
     }
 }

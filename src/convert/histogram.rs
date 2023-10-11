@@ -5,7 +5,7 @@ impl Image {
         let mut histogram: Vec<u32> = vec![0;256];
 
         for pixel in self.body {
-            histogram[usize::from(*pixel)] += 1
+            histogram[usize::from(pixel)] += 1
         }
 
         histogram
