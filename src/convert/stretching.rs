@@ -2,9 +2,7 @@ use crate::model::Image;
 
 impl Image {
     pub fn histogram_stretching(self, histogram: Vec<u32>) -> Self {
-        let mut body = self.body;
-        let image_size = self.info_header.biHeight * self.info_header.biWidth;
-
+        let body = self.body;
         let indexed_histogram: Vec<(usize, u32)> = histogram.into_iter().enumerate().collect();
 
         let low: f64 = indexed_histogram
@@ -22,10 +20,14 @@ impl Image {
             .unwrap_or(255)
             .into();
 
-        for i in 0..image_size as usize {
-            body[i] = ((body[i] as f64 - low) / (high - low) * 255f64) as u8;
-        }
+        let body = body
+            .iter()
+            .map(|x| ((x as f64 - low) / (high - low) * 255f64) as u8)
+            .collect();
 
-        Self { body, ..self }
+        Self {
+            body,
+            ..self
+        }
     }
 }
