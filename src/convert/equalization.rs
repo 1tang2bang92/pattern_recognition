@@ -1,7 +1,8 @@
 use crate::model::Image;
 
 impl Image {
-    pub fn histogram_equalization(&mut self, histogram: Vec<u32>) -> &mut Self {
+    pub fn histogram_equalization(self, histogram: Vec<u32>) -> Self {
+        let mut body = self.body;
         let image_size =  self.info_header.biHeight * self.info_header.biWidth;
         let g_max = 256;
 
@@ -18,9 +19,9 @@ impl Image {
             norm_sum[i as usize] = (ratio * a_histogram[i as usize] as f64) as u8;
         }
         for i in 0..image_size as usize {
-            self.body[i] = norm_sum[self.body[i] as usize];
+            body[i] = norm_sum[body[i] as usize];
         }
 
-        self
+        Self { body, ..self }
     }
 }

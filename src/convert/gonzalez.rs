@@ -59,6 +59,6 @@ impl Image {
 
         }
 
-        return threshold
+        threshold
     }
 }

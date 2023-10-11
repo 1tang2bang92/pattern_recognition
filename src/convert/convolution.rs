@@ -2,7 +2,7 @@ use crate::kernel::{LAPLACIAN_HPF, AVG, GAUSSIAN, LAPLACIAN, PREWITT_X, PREWITT_
 use crate::model::Image;
 
 impl Image {
-    pub fn convolution(&self, method: &str) -> Self {
+    pub fn convolution(self, method: &str) -> Self {
         let height = self.info_header.biHeight;
         let width = self.info_header.biWidth;
         let (kernel, divide_value) = match method {
