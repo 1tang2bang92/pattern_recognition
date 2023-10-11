@@ -91,7 +91,7 @@ fn main() {
             println!("{:?}", histogram);
         },
         5 => { // Binarization using Gonzalez algorithm
-            let histogram = image.histogram();
+            let histogram = image.clone().histogram();
             let threshold = image.gonzalez(histogram);
 
             image
@@ -112,14 +112,14 @@ fn main() {
                 .save(save_file_name.trim().to_owned());
         },
         7 => { // Histogram stretching
-            let histogram = image.histogram();
+            let histogram = image.clone().histogram();
 
             image
                 .histogram_stretching(histogram)
                 .save(save_file_name.trim().to_owned());
         },
         8 => { // Histogram equalization
-            let hitogram = image.histogram();
+            let hitogram = image.clone().histogram();
 
             image
                 .histogram_equalization(hitogram)
@@ -188,6 +188,11 @@ fn main() {
             }
 
             image
+                .save(save_file_name.trim().parse().unwrap())
+        },
+        18 => { // Laplacian High Pass Filter
+            image
+                .convolution("laplacian-hpf")
                 .save(save_file_name.trim().parse().unwrap())
         },
         _ => {
