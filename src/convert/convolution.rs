@@ -1,18 +1,19 @@
-use crate::kernel::{AVG, GAUSSIAN, LAPLACIAN, PREWITT_X, PREWITT_Y, SOBEL_X, SOBEL_Y};
+use crate::kernel::{LAPLACIAN_HPF, AVG, GAUSSIAN, LAPLACIAN, PREWITT_X, PREWITT_Y, SOBEL_X, SOBEL_Y};
 use crate::model::Image;
 
 impl Image {
     pub fn convolution(&self, method: &str) -> Self {
         let height = self.info_header.biHeight;
         let width = self.info_header.biWidth;
-        let kernel = match method {
-            "average" => AVG,
-            "gaussian" => GAUSSIAN,
-            "prewitt-x" => PREWITT_X,
-            "prewitt-y" => PREWITT_Y,
-            "sobel-x" => SOBEL_X,
-            "sobel-y" => SOBEL_Y,
-            "laplacian" => LAPLACIAN,
+        let (kernel, divide_value) = match method {
+            "average" => (AVG, None),
+            "gaussian" => (GAUSSIAN, None),
+            "prewitt-x" => (PREWITT_X, 3),
+            "prewitt-y" => (PREWITT_Y, 3),
+            "sobel-x" => (SOBEL_X, 4),
+            "sobel-y" => (SOBEL_Y, 4),
+            "laplacian" => (LAPLACIAN, 8),
+            "laplacian-hpf" => (LAPLACIAN_HPF, None),
             _ => panic!("Invalid method")
         };
 
@@ -33,7 +34,10 @@ impl Image {
                     }
                 }
 
-                dst.body[(i * width + j) as usize] = sum_product.abs() as u8 / 4;
+                dst.body[(i * width + j) as usize] = sum_product.abs() as u8;
+                if let v = Some(divide_value) {
+                    dst.body[(i * width + j) as usize] = dst.body[(i * width + j) as usize] / v;
+                }
             }
         }
 
