@@ -40,7 +40,7 @@ pub const LAPLACIAN: [[f64; 3]; 3] = [
     [-1.0, -1.0, -1.0],
 ];
 
-pub const _LAPLACIAN_HPF: [[f64; 3]; 3] = [
+pub const LAPLACIAN_HPF: [[f64; 3]; 3] = [
     [-1.0, -1.0, -1.0],
     [-1.0, 9.0, -1.0],
     [-1.0, -1.0, -1.0],
