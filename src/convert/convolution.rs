@@ -26,10 +26,10 @@ impl Image {
 
                 for m in -1..2 {
                     for n in -1..2 {
-                        sum_product += 
+                        sum_product +=
                             self.body[
                                 ((i + m) * width + (j + n)) as usize
-                            ] as f64 
+                            ] as f64
                             * kernel[(m + 1) as usize][(n + 1) as usize];
                     }
                 }

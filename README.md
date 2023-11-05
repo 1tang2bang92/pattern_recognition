@@ -26,3 +26,9 @@
     - prewitt
     - sobel
     - laplacian
+
+# week 7
+- laplacian highpass filter
+
+# week 8
+- median filter (min, meidan, max)

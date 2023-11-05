@@ -8,6 +8,7 @@ mod binarization;
 mod stretching;
 mod equalization;
 mod convolution;
+mod median;
 
 use std::fs::File;
 use std::io::Read;

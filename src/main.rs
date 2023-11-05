@@ -27,6 +27,7 @@ fn main() {
 	println!("16. Sobel Y Convolution");
 	println!("17. Sobel Convolution");
 	println!("18. Laplacian High Pass Filter Convolution");
+	println!("19. Meadian Filter, Min Pooling, Min Pooling, Max Pooling");
 	println!("=================================");
 	println!();
 	println!();
@@ -190,6 +191,11 @@ fn main() {
         18 => { // Laplacian High Pass Filter
             image
                 .convolution("laplacian-hpf")
+                .save(save_file_name.trim().parse().unwrap())
+        },
+        19 => { // Median Filter
+            image
+                .median("median",3)
                 .save(save_file_name.trim().parse().unwrap())
         },
         _ => {
