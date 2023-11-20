@@ -32,3 +32,6 @@
 
 # week 8
 - median filter (min, meidan, max)
+
+# week 9
+- detect object edge

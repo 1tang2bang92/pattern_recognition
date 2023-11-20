@@ -194,8 +194,41 @@ fn main() {
                 .save(save_file_name.trim().parse().unwrap())
         },
         19 => { // Median Filter
+            println!("커널의 크기를 입력하세요: ");
+            let mut kernel_size_input = String::new();
+            io::stdin()
+                .read_line(&mut kernel_size_input)
+                .unwrap();
+
+            let kernel_size: i32 = kernel_size_input.trim().parse().unwrap();
+
             image
-                .median("median",3)
+                .median("median", kernel_size)
+                .save(save_file_name.trim().parse().unwrap())
+        },
+        20 => { //labeling mode
+            println!("========== Labeling Mode =========");
+            println!("1. Max Size Labeling ");
+            println!("2. Size Filter Labeling ( > 500 )");
+            println!("3. Gray Gap Labeling");
+            println!("Labeling Mode를 입력하세요 ");
+
+            let mut label_mode_input = String::new();
+            io::stdin()
+                .read_line(&mut label_mode_input)
+                .unwrap();
+
+            let label_mode: i32 = label_mode_input.trim().parse().unwrap();
+
+            image
+                .component_labeling(label_mode)
+                .save(save_file_name.trim().parse().unwrap())
+        },
+        21 => {//detect object edge
+            println!("WARN: 가장 큰 Component를 Labeling한 결과 파일을 입력해야 합니다.");
+
+            image
+                .detect_object_edge()
                 .save(save_file_name.trim().parse().unwrap())
         },
         _ => {

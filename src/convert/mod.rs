@@ -9,6 +9,8 @@ mod stretching;
 mod equalization;
 mod convolution;
 mod median;
+mod component_labeling;
+mod detect_obejct_edge;
 
 use std::fs::File;
 use std::io::Read;
